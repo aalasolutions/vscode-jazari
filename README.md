@@ -21,15 +21,22 @@ A developer-focused VSCode theme with dark and light variants. Teal accent, unif
 
 ## Installation
 
-Search for **"Jazari"** in VS Code Extensions, or:
+1. Search for **"Jazari"** in VS Code Extensions, or run:
+   ```
+   ext install aalasolutions.jazari
+   ```
 
-```
-ext install aalasolutions.jazari
-```
+2. After installing, select your theme variant:
+   - Open the Command Palette (`Cmd+K Cmd+T` on Mac, `Ctrl+K Ctrl+T` on Windows/Linux)
+   - Choose **Jazari Dark** or **Jazari Light**
 
-To remove the CSS customizations: Command Palette > **"Jazari: Remove CSS Customizations"** > Reload.
+3. Reload VS Code when prompted.
 
-If you want the Jazari colors without the rounded panels, remove this line from your `settings.json`:
+## Opting Out of CSS Customizations
+
+Jazari includes optional rounded panels, backdrop blur, and layout tweaks powered by [Custom UI Style](https://marketplace.visualstudio.com/items?itemName=subframe7536.custom-ui-style).
+
+To keep Jazari colors without the CSS layout, run Command Palette > **"Jazari: Remove CSS Customizations"** > Reload. Or manually remove the Jazari entry from your `settings.json`:
 
 ```json
 "custom-ui-style.external.imports": [
