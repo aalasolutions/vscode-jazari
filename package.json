@@ -1,10 +1,19 @@
 {
     "name": "jazari",
     "displayName": "Jazari",
-    "description": "Developer-focused VSCode theme. Dark and light variants with teal accent, unified panels, zero noise. Named after Al-Jazari.",
+    "description": "Dark and light VS Code theme. Teal accent, rounded floating panels, backdrop blur, zero noise. Named after Al-Jazari.",
     "version": "1.0.0",
     "publisher": "aalasolutions",
+    "icon": "assets/icon.png",
     "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/aalasolutions/vscode-jazari"
+    },
+    "homepage": "https://github.com/aalasolutions/vscode-jazari#readme",
+    "bugs": {
+        "url": "https://github.com/aalasolutions/vscode-jazari/issues"
+    },
     "engines": {
         "vscode": "^1.89.0"
     },
@@ -12,14 +21,27 @@
         "Themes"
     ],
     "keywords": [
+        "vscode",
+        "vscode-theme",
         "dark",
         "light",
         "theme",
         "teal",
         "developer",
         "jazari",
-        "clean"
+        "clean",
+        "minimal",
+        "modern",
+        "rounded",
+        "glass",
+        "syntax-highlighting",
+        "dark-theme",
+        "light-theme"
     ],
+    "galleryBanner": {
+        "color": "#0F1114",
+        "theme": "dark"
+    },
     "main": "./out/extension.js",
     "activationEvents": [
         "onStartupFinished"

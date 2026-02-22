@@ -1,9 +1,15 @@
 # Jazari
 
-A developer-focused VSCode theme with dark and light variants. Teal accent, unified panel layout, zero visual noise.
+Dark and light VS Code theme. Teal accent, rounded floating panels, backdrop blur, zero noise.
 
 ![VS Code](https://img.shields.io/badge/VS%20Code-1.89%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
+
+## Preview
+
+![Jazari Dark](./assets/marketplace/jazari-dark.png)
+![Jazari Light](./assets/marketplace/jazari-light.png)
+![Jazari UI](./assets/marketplace/jazari-ui.png)
 
 ## Features
 
@@ -21,16 +27,20 @@ A developer-focused VSCode theme with dark and light variants. Teal accent, unif
 
 ## Installation
 
-1. Search for **"Jazari"** in VS Code Extensions, or run:
-   ```
-   ext install aalasolutions.jazari
-   ```
+1. Download `jazari-1.0.0.vsix` from the [latest release](https://github.com/aalasolutions/vscode-jazari/releases/latest).
 
-2. After installing, select your theme variant:
-   - Open the Command Palette (`Cmd+K Cmd+T` on Mac, `Ctrl+K Ctrl+T` on Windows/Linux)
+2. Install it using one of these methods:
+   - **VS Code UI:** Extensions sidebar > `...` menu > **Install from VSIX** > select the downloaded file
+   - **Command line:**
+     ```
+     code --install-extension jazari-1.0.0.vsix
+     ```
+
+3. Select your theme variant:
+   - `Cmd+K Cmd+T` (Mac) or `Ctrl+K Ctrl+T` (Windows/Linux)
    - Choose **Jazari Dark** or **Jazari Light**
 
-3. Reload VS Code when prompted.
+4. Reload VS Code when prompted.
 
 ## Opting Out of CSS Customizations
 
