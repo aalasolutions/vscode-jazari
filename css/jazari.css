@@ -10,7 +10,14 @@
     --jazari-pill-radius: 9999px;
     --jazari-block-radius: 16px;
     --jazari-block-gap: 6px;
+    --jazari-blur: blur(20px) saturate(180%);
+    --jazari-blur-heavy: blur(40px) saturate(180%);
     background-color: var(--vscode-activityBar-background) !important;
+}
+
+.monaco-workbench.vs-dark {
+    --jazari-blur: blur(20px) saturate(180%) brightness(0.55);
+    --jazari-blur-heavy: blur(40px) saturate(180%) brightness(0.55);
 }
 
 
@@ -47,46 +54,34 @@
     background-color: transparent !important;
 }
 
+.monaco-workbench .part.sidebar > .composite.title {
+    background-color: transparent !important;
+}
+
 /* --- State 1 (default): Aux bar visible --- */
 /* Editor: top-left */
 .part.editor {
-    /* outline: 2px solid green !important; */
     margin-top: var(--jazari-block-gap) !important;
     border-radius: var(--jazari-block-radius) 0 0 0 !important;
 }
 
 /* Panel.bottom: bottom-left */
 .part.panel.bottom {
-    /* outline: 2px solid green !important; */
     margin-bottom: var(--jazari-block-gap) !important;
     border-radius: 0 0 0 var(--jazari-block-radius) !important;
 }
 
 /* Aux bar: top-right + bottom-right */
 .part.auxiliarybar {
-    /* outline: 2px solid green !important; */
     margin: var(--jazari-block-gap) var(--jazari-block-gap) var(--jazari-block-gap) 0 !important;
     border-radius: 0 var(--jazari-block-radius) var(--jazari-block-radius) 0 !important;
+    height: calc(100% - var(--jazari-block-gap)) !important;
 }
 
-/* Aux bar: clip iframe overflow through every nested layer */
-.part.auxiliarybar > .content {
-    border-radius: inherit !important;
-    overflow: hidden !important;
-    width: 100% !important;
-    max-height: 100% !important;
-}
-
-.part.auxiliarybar .split-view-view {
-    border-radius: inherit !important;
-    overflow: hidden !important;
-}
-
-.part.auxiliarybar .webview-container,
-.part.auxiliarybar .webview-container iframe {
-    border-radius: inherit !important;
-    overflow: hidden !important;
-    max-height: 100% !important;
+/* Webview iframe overlays: rendered outside aux bar DOM at workbench root.
+   VS Code computes overlay size without our margins, so trim edges + round corners. */
+.monaco-workbench > div[data-keybinding-context] {
+    clip-path: inset(var(--jazari-block-gap) var(--jazari-block-gap) var(--jazari-block-gap) 0 round 0 var(--jazari-block-radius) var(--jazari-block-radius) 0) !important;
 }
 
 /* --- State 2: Aux bar hidden → editor/panel pick up right corners + right gap --- */
@@ -179,6 +174,10 @@
     background-color: transparent !important;
 }
 
+.part.statusbar {
+    background-color: transparent !important;
+}
+
 .tab {
     margin: 0 !important;
     border-right: none !important;
@@ -212,6 +211,13 @@
     overflow: hidden !important;
     border: 1px solid rgba(128, 128, 128, 0.15) !important;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+    background-color: color-mix(in srgb, var(--vscode-quickInput-background) 60%, transparent) !important;
+    backdrop-filter: var(--jazari-blur-heavy);
+    -webkit-backdrop-filter: var(--jazari-blur-heavy);
+}
+
+.quick-input-widget .quick-input-list .monaco-list-rows {
+    background: transparent !important;
 }
 
 .quick-input-widget .monaco-list-row {
@@ -251,6 +257,9 @@
     overflow: hidden !important;
     border: 1px solid rgba(128, 128, 128, 0.15) !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    background: color-mix(in srgb, var(--vscode-notifications-background) 60%, transparent) !important;
+    backdrop-filter: var(--jazari-blur);
+    -webkit-backdrop-filter: var(--jazari-blur);
 }
 
 .notifications-center {
@@ -258,6 +267,9 @@
     overflow: hidden !important;
     border: 1px solid rgba(128, 128, 128, 0.15) !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    background: color-mix(in srgb, var(--vscode-notifications-background) 60%, transparent) !important;
+    backdrop-filter: var(--jazari-blur);
+    -webkit-backdrop-filter: var(--jazari-blur);
 }
 
 .notification-list-item {
@@ -276,6 +288,9 @@
     border: 1px solid rgba(128, 128, 128, 0.15) !important;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
     overflow: hidden !important;
+    background: color-mix(in srgb, var(--vscode-editorSuggestWidget-background) 60%, transparent) !important;
+    backdrop-filter: var(--jazari-blur);
+    -webkit-backdrop-filter: var(--jazari-blur);
 }
 
 .suggest-widget .monaco-list-row {
@@ -291,6 +306,9 @@
     border: 1px solid rgba(128, 128, 128, 0.12) !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
     overflow: hidden !important;
+    background-color: color-mix(in srgb, var(--vscode-editorHoverWidget-background) 60%, transparent) !important;
+    backdrop-filter: var(--jazari-blur);
+    -webkit-backdrop-filter: var(--jazari-blur);
 }
 
 /* Parameter Hints */
@@ -299,6 +317,9 @@
     border: 1px solid rgba(128, 128, 128, 0.15) !important;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
     overflow: hidden !important;
+    background: color-mix(in srgb, var(--vscode-editorWidget-background) 60%, transparent) !important;
+    backdrop-filter: var(--jazari-blur);
+    -webkit-backdrop-filter: var(--jazari-blur);
 }
 
 /* Find/Replace */
@@ -307,6 +328,8 @@
     border: 1px solid rgba(128, 128, 128, 0.15) !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
     overflow: hidden !important;
+    backdrop-filter: var(--jazari-blur);
+    -webkit-backdrop-filter: var(--jazari-blur);
 }
 
 .find-widget .monaco-findInput,
@@ -324,6 +347,9 @@
     overflow: hidden !important;
     border: 1px solid rgba(128, 128, 128, 0.15) !important;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+    background: color-mix(in srgb, var(--vscode-editor-background) 60%, transparent) !important;
+    backdrop-filter: var(--jazari-blur-heavy);
+    -webkit-backdrop-filter: var(--jazari-blur-heavy);
 }
 
 .monaco-dialog-box .dialog-buttons .monaco-button {
@@ -347,6 +373,8 @@
     border: 1px solid rgba(128, 128, 128, 0.15) !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
     padding: 4px 12px !important;
+    backdrop-filter: var(--jazari-blur-heavy) !important;
+    -webkit-backdrop-filter: var(--jazari-blur-heavy) !important;
 }
 
 .debug-toolbar .action-item .action-label {
@@ -517,6 +545,10 @@
 /* ================================================================
    H. TITLE BAR
    ================================================================ */
+
+.monaco-workbench.mac .part.titlebar {
+    background-color: transparent !important;
+}
 
 .part.titlebar .action-label {
     border-radius: 50% !important;
