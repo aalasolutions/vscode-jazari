@@ -29,10 +29,34 @@ ext install aalasolutions.jazari
 
 To remove the CSS customizations: Command Palette > **"Jazari: Remove CSS Customizations"** > Reload.
 
+If you want the Jazari colors without the rounded panels, remove this line from your `settings.json`:
+
+```json
+"custom-ui-style.external.imports": [
+    "file:///path/to/jazari/css/jazari.css"  // remove this entry
+]
+```
+
 ## Requirements
 
 - VS Code 1.89+
 - [Custom UI Style](https://marketplace.visualstudio.com/items?itemName=subframe7536.custom-ui-style) (optional, for CSS layout customizations)
+
+## Build from Source
+
+```bash
+git clone https://github.com/aalasolutions/vscode-jazari.git
+cd vscode-jazari
+npm install
+npm run compile
+npx @vscode/vsce package
+```
+
+This produces `jazari-1.0.0.vsix`. Install it with:
+
+```bash
+code --install-extension jazari-1.0.0.vsix
+```
 
 ## Why "Jazari"?
 
