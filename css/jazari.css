@@ -206,21 +206,53 @@
    ================================================================ */
 
 /* Command Palette */
-.quick-input-widget {
+.monaco-workbench .quick-input-widget {
     border-radius: var(--jazari-widget-radius) !important;
     overflow: hidden !important;
     border: 1px solid rgba(128, 128, 128, 0.15) !important;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
-    background-color: color-mix(in srgb, var(--vscode-quickInput-background) 60%, transparent) !important;
-    backdrop-filter: var(--jazari-blur-heavy);
-    -webkit-backdrop-filter: var(--jazari-blur-heavy);
+    background-color: color-mix(in srgb, var(--vscode-quickInput-background) 40%, transparent) !important;
+    backdrop-filter: var(--jazari-blur-heavy) !important;
+    -webkit-backdrop-filter: var(--jazari-blur-heavy) !important;
 }
 
-.quick-input-widget .quick-input-list .monaco-list-rows {
+/* Remove backdrop-filter when quick chat is active (creates containing block that shifts suggest widgets) */
+.monaco-workbench .quick-input-widget:has(.interactive-session) {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: var(--vscode-quickInput-background) !important;
+}
+
+/* All child containers must be transparent for blur to show through */
+.monaco-workbench .quick-input-widget .quick-input-header,
+.monaco-workbench .quick-input-widget .quick-input-list,
+.monaco-workbench .quick-input-widget .quick-input-titlebar,
+.monaco-workbench .quick-input-widget .quick-input-title,
+.monaco-workbench .quick-input-widget .quick-input-description,
+.monaco-workbench .quick-input-widget .quick-input-filter,
+.monaco-workbench .quick-input-widget .quick-input-action,
+.monaco-workbench .quick-input-widget .quick-input-message,
+.monaco-workbench .quick-input-widget .monaco-list,
+.monaco-workbench .quick-input-widget .monaco-list-row:not(:has(.quick-input-list-separator-border)) {
+    border-color: transparent !important;
+    outline: none !important;
+}
+
+.monaco-workbench .quick-input-widget .quick-input-list .monaco-list-rows {
     background: transparent !important;
 }
 
-.quick-input-widget .monaco-list-row {
+.monaco-workbench .quick-input-widget .monaco-inputbox {
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.monaco-workbench .quick-input-widget .quick-input-filter .monaco-inputbox {
+    background: color-mix(in srgb, var(--vscode-input-background) 40%, transparent) !important;
+    border-radius: var(--jazari-input-radius) !important;
+}
+
+.monaco-workbench .quick-input-widget .monaco-list-row {
     border-radius: var(--jazari-item-radius) !important;
     margin: 2px 4px !important;
     width: calc(100% - 8px) !important;
@@ -228,72 +260,82 @@
 }
 
 /* Context Menus */
-.monaco-menu .monaco-menu-container {
+.monaco-workbench .monaco-menu .monaco-menu-container {
     border-radius: var(--jazari-widget-radius) !important;
     border: 1px solid rgba(128, 128, 128, 0.15) !important;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
     overflow: hidden !important;
 }
 
-.monaco-menu .monaco-menu-container .monaco-list-row {
+/* Action Widget (code actions, lightbulb menu) */
+.monaco-workbench .action-widget {
+    background: color-mix(in srgb, var(--vscode-menu-background) 40%, transparent) !important;
+    backdrop-filter: var(--jazari-blur) !important;
+    -webkit-backdrop-filter: var(--jazari-blur) !important;
+}
+
+.monaco-workbench .monaco-menu .monaco-menu-container .monaco-list-row {
     border-radius: var(--jazari-item-radius) !important;
     margin: 2px 6px !important;
     width: calc(100% - 12px) !important;
     transition: background 0.12s ease !important;
 }
 
-.monaco-menu .separator {
+.monaco-workbench .monaco-menu .separator {
     margin: 4px 12px !important;
 }
 
 /* Notifications */
-.notifications-toasts {
+.monaco-workbench .notifications-toasts {
     margin-right: 6px !important;
     margin-bottom: 6px !important;
 }
 
-.notification-toast {
+.monaco-workbench .notification-toast-container {
+    backdrop-filter: var(--jazari-blur) !important;
+    -webkit-backdrop-filter: var(--jazari-blur) !important;
+    background: color-mix(in srgb, var(--vscode-notifications-background) 40%, transparent) !important;
+}
+
+.monaco-workbench .notification-toast {
     border-radius: var(--jazari-widget-radius) !important;
     overflow: hidden !important;
     border: 1px solid rgba(128, 128, 128, 0.15) !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-    background: color-mix(in srgb, var(--vscode-notifications-background) 60%, transparent) !important;
-    backdrop-filter: var(--jazari-blur);
-    -webkit-backdrop-filter: var(--jazari-blur);
 }
 
-.notifications-center {
+.monaco-workbench .notifications-center {
     border-radius: var(--jazari-widget-radius) !important;
     overflow: hidden !important;
     border: 1px solid rgba(128, 128, 128, 0.15) !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-    background: color-mix(in srgb, var(--vscode-notifications-background) 60%, transparent) !important;
-    backdrop-filter: var(--jazari-blur);
-    -webkit-backdrop-filter: var(--jazari-blur);
+    background: color-mix(in srgb, var(--vscode-notifications-background) 40%, transparent) !important;
+    backdrop-filter: var(--jazari-blur) !important;
+    -webkit-backdrop-filter: var(--jazari-blur) !important;
 }
 
-.notification-list-item {
+.monaco-workbench .notification-list-item {
     border-radius: var(--jazari-widget-radius) !important;
     overflow: hidden !important;
 }
 
-.notification-list-item.focused {
+.monaco-workbench .notification-list-item.focused {
     border-radius: var(--jazari-widget-radius) !important;
     outline-offset: -1px !important;
 }
 
 /* Suggest Widget (IntelliSense) */
-.suggest-widget {
+.monaco-workbench .monaco-editor .suggest-widget {
     border-radius: var(--jazari-widget-radius) !important;
     border: 1px solid rgba(128, 128, 128, 0.15) !important;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
     overflow: hidden !important;
-    background: color-mix(in srgb, var(--vscode-editorSuggestWidget-background) 60%, transparent) !important;
-    backdrop-filter: var(--jazari-blur);
-    -webkit-backdrop-filter: var(--jazari-blur);
+    background: color-mix(in srgb, var(--vscode-editorSuggestWidget-background) 40%, transparent) !important;
+    backdrop-filter: var(--jazari-blur) !important;
+    -webkit-backdrop-filter: var(--jazari-blur) !important;
 }
 
-.suggest-widget .monaco-list-row {
+.monaco-workbench .suggest-widget .monaco-list-row {
     border-radius: var(--jazari-item-radius) !important;
     margin: 2px 6px !important;
     width: calc(100% - 12px) !important;
@@ -301,35 +343,42 @@
 }
 
 /* Hover Widget */
-.monaco-hover {
+.monaco-workbench .monaco-hover {
     border-radius: var(--jazari-widget-radius) !important;
     border: 1px solid rgba(128, 128, 128, 0.12) !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
     overflow: hidden !important;
-    background-color: color-mix(in srgb, var(--vscode-editorHoverWidget-background) 60%, transparent) !important;
-    backdrop-filter: var(--jazari-blur);
-    -webkit-backdrop-filter: var(--jazari-blur);
+    background-color: color-mix(in srgb, var(--vscode-editorHoverWidget-background) 40%, transparent) !important;
+    backdrop-filter: var(--jazari-blur) !important;
+    -webkit-backdrop-filter: var(--jazari-blur) !important;
+}
+
+.monaco-workbench .monaco-hover.workbench-hover,
+.monaco-hover.workbench-hover {
+    background-color: color-mix(in srgb, var(--vscode-editorHoverWidget-background) 40%, transparent) !important;
+    backdrop-filter: var(--jazari-blur-heavy) !important;
+    -webkit-backdrop-filter: var(--jazari-blur-heavy) !important;
 }
 
 /* Parameter Hints */
-.parameter-hints-widget {
+.monaco-workbench .monaco-editor .parameter-hints-widget {
     border-radius: var(--jazari-widget-radius) !important;
     border: 1px solid rgba(128, 128, 128, 0.15) !important;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
     overflow: hidden !important;
-    background: color-mix(in srgb, var(--vscode-editorWidget-background) 60%, transparent) !important;
-    backdrop-filter: var(--jazari-blur);
-    -webkit-backdrop-filter: var(--jazari-blur);
+    background: color-mix(in srgb, var(--vscode-editorWidget-background) 40%, transparent) !important;
+    backdrop-filter: var(--jazari-blur) !important;
+    -webkit-backdrop-filter: var(--jazari-blur) !important;
 }
 
 /* Find/Replace */
-.find-widget {
+.monaco-workbench .monaco-editor .find-widget {
     border-radius: var(--jazari-widget-radius) !important;
     border: 1px solid rgba(128, 128, 128, 0.15) !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
     overflow: hidden !important;
-    backdrop-filter: var(--jazari-blur);
-    -webkit-backdrop-filter: var(--jazari-blur);
+    backdrop-filter: var(--jazari-blur) !important;
+    -webkit-backdrop-filter: var(--jazari-blur) !important;
 }
 
 .find-widget .monaco-findInput,
@@ -342,33 +391,58 @@
 }
 
 /* Dialog Boxes */
-.monaco-dialog-box {
+.monaco-workbench .monaco-dialog-box {
     border-radius: var(--jazari-widget-radius) !important;
     overflow: hidden !important;
     border: 1px solid rgba(128, 128, 128, 0.15) !important;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
-    background: color-mix(in srgb, var(--vscode-editor-background) 60%, transparent) !important;
-    backdrop-filter: var(--jazari-blur-heavy);
-    -webkit-backdrop-filter: var(--jazari-blur-heavy);
+    background: color-mix(in srgb, var(--vscode-editor-background) 40%, transparent) !important;
+    backdrop-filter: var(--jazari-blur-heavy) !important;
+    -webkit-backdrop-filter: var(--jazari-blur-heavy) !important;
 }
 
-.monaco-dialog-box .dialog-buttons .monaco-button {
+.monaco-workbench .monaco-dialog-box .dialog-buttons .monaco-button {
     border-radius: var(--jazari-input-radius) !important;
 }
 
 /* Command Center (title bar search) */
-.command-center-center {
+.monaco-workbench .part.titlebar .command-center .action-item.command-center-center {
     border-radius: var(--jazari-pill-radius) !important;
     overflow: hidden !important;
     border: none !important;
+    background: color-mix(in srgb, var(--vscode-commandCenter-background) 40%, transparent) !important;
+    backdrop-filter: var(--jazari-blur) !important;
+    -webkit-backdrop-filter: var(--jazari-blur) !important;
 }
 
-.command-center-center * {
+.monaco-workbench .command-center-center * {
     border-radius: var(--jazari-pill-radius) !important;
 }
 
+/* Breadcrumbs Picker */
+.monaco-workbench .breadcrumbs-picker-widget {
+    backdrop-filter: var(--jazari-blur) !important;
+    -webkit-backdrop-filter: var(--jazari-blur) !important;
+    background: color-mix(in srgb, var(--vscode-breadcrumbPicker-background) 40%, transparent) !important;
+}
+
+/* Peek View */
+.monaco-workbench .monaco-editor .peekview-widget {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+    background: color-mix(in srgb, var(--vscode-peekViewEditor-background) 40%, transparent) !important;
+    backdrop-filter: var(--jazari-blur) !important;
+    -webkit-backdrop-filter: var(--jazari-blur) !important;
+}
+
+/* Rename Box */
+.monaco-workbench .monaco-editor .rename-box.preview {
+    backdrop-filter: var(--jazari-blur-heavy) !important;
+    -webkit-backdrop-filter: var(--jazari-blur-heavy) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+}
+
 /* Debug Toolbar */
-.debug-toolbar {
+.monaco-workbench .debug-toolbar {
     border-radius: var(--jazari-pill-radius) !important;
     border: 1px solid rgba(128, 128, 128, 0.15) !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
@@ -377,38 +451,61 @@
     -webkit-backdrop-filter: var(--jazari-blur-heavy) !important;
 }
 
-.debug-toolbar .action-item .action-label {
+.monaco-workbench .debug-toolbar .action-item .action-label {
     border-radius: 50% !important;
 }
 
+/* Debug Hover */
+.monaco-workbench .debug-hover-widget {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+    border-radius: var(--jazari-widget-radius) !important;
+    backdrop-filter: var(--jazari-blur) !important;
+    -webkit-backdrop-filter: var(--jazari-blur) !important;
+}
+
 /* Inline Chat */
-.inline-chat-widget {
+.monaco-workbench .inline-chat-widget {
     border-radius: var(--jazari-widget-radius) !important;
     border: 1px solid rgba(128, 128, 128, 0.15) !important;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
     overflow: hidden !important;
 }
 
-.inline-chat-widget .monaco-inputbox {
+.monaco-workbench .inline-chat-widget .monaco-inputbox {
     border-radius: var(--jazari-input-radius) !important;
 }
 
+.monaco-workbench .inline-chat-gutter-menu {
+    border-radius: var(--jazari-widget-radius) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: var(--jazari-blur) !important;
+    -webkit-backdrop-filter: var(--jazari-blur) !important;
+}
+
 /* Chat Input */
-.chat-input-container {
+.monaco-workbench .chat-input-container {
     border-radius: var(--jazari-widget-radius) !important;
     border: 1px solid rgba(128, 128, 128, 0.1) !important;
     overflow: hidden !important;
 }
 
-.interactive-input-part {
+.monaco-workbench .interactive-input-part {
     border-radius: var(--jazari-widget-radius) !important;
     overflow: hidden !important;
 }
 
-.chat-editing-session-container,
-.chat-confirmation-widget2 {
+.monaco-workbench .chat-editing-session-container,
+.monaco-workbench .chat-confirmation-widget2 {
     border-radius: var(--jazari-input-radius) !important;
     overflow: hidden !important;
+}
+
+/* Chat Editor Overlay */
+.monaco-workbench .chat-editor-overlay-widget,
+.monaco-workbench .chat-diff-change-content-widget {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: var(--jazari-blur) !important;
+    -webkit-backdrop-filter: var(--jazari-blur) !important;
 }
 
 
