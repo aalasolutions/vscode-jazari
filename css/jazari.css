@@ -1,0 +1,559 @@
+/* ================================================================
+   JAZARI — Unified Panel CSS
+   Developer-focused. Practical. Zero noise.
+   ================================================================ */
+
+.monaco-workbench {
+    --jazari-widget-radius: 12px;
+    --jazari-input-radius: 8px;
+    --jazari-item-radius: 6px;
+    --jazari-pill-radius: 9999px;
+    --jazari-block-radius: 16px;
+    --jazari-block-gap: 6px;
+    background-color: var(--vscode-activityBar-background) !important;
+}
+
+
+/* ================================================================
+   A. UNIFIED BLOCK — Editor + Panel.bottom + Aux Bar
+   Sidebar stays transparent, no rounding.
+   Rounding logic:
+     1. All 3 open:      editor=TL, panel=BL, aux=TR+BR
+     2. No aux:           editor=TL+TR, panel=BL+BR
+     3. Editor only:      editor=all 4
+     4. Editor+aux:       editor=TL+BL, aux=TR+BR
+   ================================================================ */
+
+/* Base resets */
+.part.sidebar,
+.part.editor,
+.part.panel.bottom,
+.part.auxiliarybar {
+    border: none !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+}
+
+/* Sidebar: no rounding, transparent internals */
+.part.sidebar {
+    border-radius: 0 !important;
+}
+
+.monaco-workbench .part.sidebar.left.pane-composite-part {
+    background-color: transparent !important;
+}
+
+.monaco-workbench .part.sidebar.left.pane-composite-part .monaco-list-rows {
+    background-color: transparent !important;
+}
+
+/* --- State 1 (default): Aux bar visible --- */
+/* Editor: top-left */
+.part.editor {
+    /* outline: 2px solid green !important; */
+    margin-top: var(--jazari-block-gap) !important;
+    border-radius: var(--jazari-block-radius) 0 0 0 !important;
+}
+
+/* Panel.bottom: bottom-left */
+.part.panel.bottom {
+    /* outline: 2px solid green !important; */
+    margin-bottom: var(--jazari-block-gap) !important;
+    border-radius: 0 0 0 var(--jazari-block-radius) !important;
+}
+
+/* Aux bar: top-right + bottom-right */
+.part.auxiliarybar {
+    /* outline: 2px solid green !important; */
+    margin: var(--jazari-block-gap) var(--jazari-block-gap) var(--jazari-block-gap) 0 !important;
+    border-radius: 0 var(--jazari-block-radius) var(--jazari-block-radius) 0 !important;
+}
+
+/* Aux bar: clip iframe overflow through every nested layer */
+.part.auxiliarybar > .content {
+    border-radius: inherit !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    max-height: 100% !important;
+}
+
+.part.auxiliarybar .split-view-view {
+    border-radius: inherit !important;
+    overflow: hidden !important;
+}
+
+.part.auxiliarybar .webview-container,
+.part.auxiliarybar .webview-container iframe {
+    border-radius: inherit !important;
+    overflow: hidden !important;
+    max-height: 100% !important;
+}
+
+/* --- State 2: Aux bar hidden → editor/panel pick up right corners + right gap --- */
+.monaco-workbench:not(:has(.split-view-view.visible > .part.auxiliarybar)) .part.editor {
+    margin-right: var(--jazari-block-gap) !important;
+    border-radius: var(--jazari-block-radius) var(--jazari-block-radius) 0 0 !important;
+}
+
+.monaco-workbench:not(:has(.split-view-view.visible > .part.auxiliarybar)) .part.panel.bottom {
+    margin-right: var(--jazari-block-gap) !important;
+    border-radius: 0 0 var(--jazari-block-radius) var(--jazari-block-radius) !important;
+}
+
+
+/* ================================================================
+   B. ACTIVITY BAR — Pill container, clean
+   ================================================================ */
+
+.part.activitybar {
+    overflow: visible !important;
+}
+
+.part.activitybar .composite-bar {
+    border-radius: var(--jazari-pill-radius);
+    overflow: hidden !important;
+    width: calc(100% - 8px) !important;
+    margin: 8px auto 30px;
+    padding: 6px 3px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    border: 1px solid rgba(128, 128, 128, 0.1) !important;
+}
+
+.part.activitybar .action-item .active-item-indicator {
+    display: none !important;
+}
+
+.part.activitybar .action-item.checked .action-label {
+    background: rgba(128, 128, 128, 0.12) !important;
+    border-radius: 50% !important;
+}
+
+.part.activitybar .actions-container {
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    overflow: visible !important;
+}
+
+.part.activitybar .action-item {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+    overflow: visible !important;
+}
+
+.part.activitybar .badge {
+    z-index: 10 !important;
+    overflow: visible !important;
+    transform: scale(0.85) !important;
+    transform-origin: top right !important;
+}
+
+.part.activitybar .content > div:last-child {
+    transform: translateY(-10px) !important;
+}
+
+.monaco-action-bar.vertical {
+    background-color: transparent !important;
+}
+
+
+/* ================================================================
+   C. TABS — Clean, accent underline on active
+   ================================================================ */
+
+.monaco-workbench .part.editor>.content .editor-group-container>.title {
+    background-color: transparent !important;
+}
+
+.monaco-workbench .part.editor>.content .editor-group-container>.title .tabs-container>.tab {
+    background-color: transparent !important;
+}
+
+.tab {
+    margin: 0 !important;
+    border-right: none !important;
+    border-radius: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.tab .tab-actions .action-label {
+    border-radius: 50% !important;
+}
+
+.tab .tab-actions {
+    opacity: 0 !important;
+    transition: opacity 0.15s ease !important;
+}
+
+.tab:hover .tab-actions,
+.tab.active .tab-actions {
+    opacity: 1 !important;
+}
+
+
+/* ================================================================
+   D. FLOATING WIDGETS — Rounded corners + shadow (these KEEP styling)
+   ================================================================ */
+
+/* Command Palette */
+.quick-input-widget {
+    border-radius: var(--jazari-widget-radius) !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(128, 128, 128, 0.15) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+.quick-input-widget .monaco-list-row {
+    border-radius: var(--jazari-item-radius) !important;
+    margin: 2px 4px !important;
+    width: calc(100% - 8px) !important;
+    transition: background 0.12s ease !important;
+}
+
+/* Context Menus */
+.monaco-menu .monaco-menu-container {
+    border-radius: var(--jazari-widget-radius) !important;
+    border: 1px solid rgba(128, 128, 128, 0.15) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+    overflow: hidden !important;
+}
+
+.monaco-menu .monaco-menu-container .monaco-list-row {
+    border-radius: var(--jazari-item-radius) !important;
+    margin: 2px 6px !important;
+    width: calc(100% - 12px) !important;
+    transition: background 0.12s ease !important;
+}
+
+.monaco-menu .separator {
+    margin: 4px 12px !important;
+}
+
+/* Notifications */
+.notifications-toasts {
+    margin-right: 6px !important;
+    margin-bottom: 6px !important;
+}
+
+.notification-toast {
+    border-radius: var(--jazari-widget-radius) !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(128, 128, 128, 0.15) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+.notifications-center {
+    border-radius: var(--jazari-widget-radius) !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(128, 128, 128, 0.15) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+.notification-list-item {
+    border-radius: var(--jazari-widget-radius) !important;
+    overflow: hidden !important;
+}
+
+.notification-list-item.focused {
+    border-radius: var(--jazari-widget-radius) !important;
+    outline-offset: -1px !important;
+}
+
+/* Suggest Widget (IntelliSense) */
+.suggest-widget {
+    border-radius: var(--jazari-widget-radius) !important;
+    border: 1px solid rgba(128, 128, 128, 0.15) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+    overflow: hidden !important;
+}
+
+.suggest-widget .monaco-list-row {
+    border-radius: var(--jazari-item-radius) !important;
+    margin: 2px 6px !important;
+    width: calc(100% - 12px) !important;
+    transition: background 0.12s ease !important;
+}
+
+/* Hover Widget */
+.monaco-hover {
+    border-radius: var(--jazari-widget-radius) !important;
+    border: 1px solid rgba(128, 128, 128, 0.12) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+    overflow: hidden !important;
+}
+
+/* Parameter Hints */
+.parameter-hints-widget {
+    border-radius: var(--jazari-widget-radius) !important;
+    border: 1px solid rgba(128, 128, 128, 0.15) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+    overflow: hidden !important;
+}
+
+/* Find/Replace */
+.find-widget {
+    border-radius: var(--jazari-widget-radius) !important;
+    border: 1px solid rgba(128, 128, 128, 0.15) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+    overflow: hidden !important;
+}
+
+.find-widget .monaco-findInput,
+.find-widget .replace-input {
+    border-radius: var(--jazari-input-radius) !important;
+}
+
+.find-widget .button {
+    border-radius: var(--jazari-item-radius) !important;
+}
+
+/* Dialog Boxes */
+.monaco-dialog-box {
+    border-radius: var(--jazari-widget-radius) !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(128, 128, 128, 0.15) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+.monaco-dialog-box .dialog-buttons .monaco-button {
+    border-radius: var(--jazari-input-radius) !important;
+}
+
+/* Command Center (title bar search) */
+.command-center-center {
+    border-radius: var(--jazari-pill-radius) !important;
+    overflow: hidden !important;
+    border: none !important;
+}
+
+.command-center-center * {
+    border-radius: var(--jazari-pill-radius) !important;
+}
+
+/* Debug Toolbar */
+.debug-toolbar {
+    border-radius: var(--jazari-pill-radius) !important;
+    border: 1px solid rgba(128, 128, 128, 0.15) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+    padding: 4px 12px !important;
+}
+
+.debug-toolbar .action-item .action-label {
+    border-radius: 50% !important;
+}
+
+/* Inline Chat */
+.inline-chat-widget {
+    border-radius: var(--jazari-widget-radius) !important;
+    border: 1px solid rgba(128, 128, 128, 0.15) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+    overflow: hidden !important;
+}
+
+.inline-chat-widget .monaco-inputbox {
+    border-radius: var(--jazari-input-radius) !important;
+}
+
+/* Chat Input */
+.chat-input-container {
+    border-radius: var(--jazari-widget-radius) !important;
+    border: 1px solid rgba(128, 128, 128, 0.1) !important;
+    overflow: hidden !important;
+}
+
+.interactive-input-part {
+    border-radius: var(--jazari-widget-radius) !important;
+    overflow: hidden !important;
+}
+
+.chat-editing-session-container,
+.chat-confirmation-widget2 {
+    border-radius: var(--jazari-input-radius) !important;
+    overflow: hidden !important;
+}
+
+
+/* ================================================================
+   E. INPUTS & BUTTONS
+   ================================================================ */
+
+.monaco-inputbox {
+    border-radius: var(--jazari-input-radius) !important;
+}
+
+.part.sidebar .monaco-button {
+    border-radius: var(--jazari-input-radius) !important;
+}
+
+.scm-editor,
+.scm-input {
+    border-radius: var(--jazari-input-radius) !important;
+    overflow: hidden !important;
+}
+
+.scm-input + .scm-editor-toolbar + .monaco-button {
+    border-radius: var(--jazari-input-radius) !important;
+}
+
+.viewpane-filter .monaco-inputbox,
+.search-widget .monaco-inputbox {
+    border-radius: var(--jazari-input-radius) !important;
+}
+
+.extensions-search-container .suggest-input-container {
+    border-radius: var(--jazari-input-radius) !important;
+    overflow: hidden !important;
+}
+
+.settings-editor .monaco-inputbox,
+.settings-editor .monaco-select-box {
+    border-radius: var(--jazari-input-radius) !important;
+}
+
+.keybindings-editor .monaco-inputbox {
+    border-radius: var(--jazari-input-radius) !important;
+}
+
+.monaco-dropdown {
+    border-radius: var(--jazari-input-radius) !important;
+}
+
+.monaco-dropdown .dropdown-label {
+    border-radius: var(--jazari-input-radius) !important;
+}
+
+
+/* ================================================================
+   F. LIST ITEMS — Subtle radius, flat transitions
+   ================================================================ */
+
+.part.sidebar .monaco-list-row {
+    border-radius: var(--jazari-item-radius) !important;
+    margin-left: 4px !important;
+    margin-right: 4px !important;
+    width: calc(100% - 8px) !important;
+    transition: background 0.12s ease !important;
+}
+
+.part.sidebar .monaco-list-row.selected {
+    outline: none !important;
+}
+
+.part.sidebar .monaco-list-row.focused,
+.part.sidebar .monaco-list-row.focused.selected,
+.part.sidebar .monaco-list:focus .monaco-list-row.focused {
+    outline: none !important;
+}
+
+.part.sidebar .pane-header {
+    border-radius: var(--jazari-item-radius) !important;
+    outline-offset: -1px !important;
+}
+
+.explorer-folders-view .monaco-tl-row {
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+}
+
+.scm-view .monaco-list-row,
+.testing-view .monaco-list-row,
+.timeline-view .monaco-list-row,
+.outline-view .monaco-list-row {
+    border-radius: var(--jazari-item-radius) !important;
+    margin: 1px 4px !important;
+    width: calc(100% - 8px) !important;
+}
+
+.settings-editor > .settings-body .settings-tree-container .monaco-list-row {
+    border-radius: var(--jazari-item-radius) !important;
+    margin: 2px 8px !important;
+    width: calc(100% - 16px) !important;
+}
+
+.keybindings-editor .monaco-list-row {
+    border-radius: var(--jazari-item-radius) !important;
+    margin: 2px 4px !important;
+    width: calc(100% - 8px) !important;
+}
+
+.debug-call-stack .monaco-list-row,
+.debug-variables .monaco-list-row {
+    border-radius: var(--jazari-item-radius) !important;
+    margin: 1px 4px !important;
+    width: calc(100% - 8px) !important;
+}
+
+.split-view-view:has(.terminal-tabs-entry) .monaco-list-row {
+    border-radius: var(--jazari-item-radius) !important;
+    margin-right: 20px !important;
+    width: calc(100% - 20px) !important;
+}
+
+
+/* ================================================================
+   G. SCROLLBARS
+   ================================================================ */
+
+.scrollbar .slider {
+    border-radius: var(--jazari-pill-radius) !important;
+}
+
+.monaco-count-badge {
+    border-radius: var(--jazari-pill-radius) !important;
+}
+
+
+/* ================================================================
+   H. TITLE BAR
+   ================================================================ */
+
+.part.titlebar .action-label {
+    border-radius: 50% !important;
+}
+
+
+/* ================================================================
+   I. EDITOR DETAILS — Cursor, selections, brackets
+   ================================================================ */
+
+.monaco-editor .cursors-layer .cursor {
+    border-radius: 1px !important;
+}
+
+.monaco-editor .bracket-match {
+    border-radius: 2px !important;
+}
+
+.monaco-editor .findMatch,
+.monaco-editor .findMatchHighlight,
+.monaco-editor .selectionHighlight,
+.monaco-editor .rangeHighlight {
+    border-radius: 2px !important;
+}
+
+/* Progress bar */
+.monaco-progress-container {
+    border-radius: var(--jazari-pill-radius) !important;
+    overflow: hidden !important;
+    height: 2px !important;
+}
+
+/* Sticky scroll */
+.sticky-widget {
+    z-index: 1 !important;
+}
+
+/* Breadcrumbs */
+.monaco-breadcrumbs {
+    border-top: none !important;
+}
+
+/* Sash (resize handles) */
+.monaco-sash {
+    transition: background 0.15s ease !important;
+}

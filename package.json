@@ -1,0 +1,58 @@
+{
+    "name": "jazari",
+    "displayName": "Jazari",
+    "description": "Developer-focused VSCode theme. Dark and light variants with teal accent, unified panels, zero noise. Named after Al-Jazari.",
+    "version": "1.0.0",
+    "publisher": "aalasolutions",
+    "license": "MIT",
+    "engines": {
+        "vscode": "^1.89.0"
+    },
+    "categories": [
+        "Themes"
+    ],
+    "keywords": [
+        "dark",
+        "light",
+        "theme",
+        "teal",
+        "developer",
+        "jazari",
+        "clean"
+    ],
+    "main": "./out/extension.js",
+    "activationEvents": [
+        "onStartupFinished"
+    ],
+    "contributes": {
+        "themes": [
+            {
+                "label": "Jazari Dark",
+                "uiTheme": "vs-dark",
+                "path": "./themes/jazari-dark.json"
+            },
+            {
+                "label": "Jazari Light",
+                "uiTheme": "vs",
+                "path": "./themes/jazari-light.json"
+            }
+        ],
+        "commands": [
+            {
+                "command": "jazari.removeCssImport",
+                "title": "Remove CSS Customizations",
+                "category": "Jazari"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "tsc -p ./",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./"
+    },
+    "devDependencies": {
+        "@types/node": "^20.0.0",
+        "@types/vscode": "^1.89.0",
+        "typescript": "^5.4.0"
+    }
+}
