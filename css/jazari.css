@@ -100,6 +100,12 @@
     border-radius: 0 0 var(--jazari-block-radius) var(--jazari-block-radius) !important;
 }
 
+/* --- State 3: Editor only (no aux, no bottom panel) → all 4 corners --- */
+.monaco-workbench:not(:has(.split-view-view.visible > .part.auxiliarybar)):not(:has(.split-view-view.visible > .part.panel.bottom)) .part.editor {
+    margin: var(--jazari-block-gap) var(--jazari-block-gap) var(--jazari-block-gap) 0 !important;
+    border-radius: var(--jazari-block-radius) !important;
+}
+
 
 /* ================================================================
    B. ACTIVITY BAR — Pill container, clean
