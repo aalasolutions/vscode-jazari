@@ -59,23 +59,33 @@
 }
 
 /* --- State 1 (default): Aux bar visible --- */
-/* Editor: top-left */
+/* Editor: top */
 .part.editor {
     margin-top: var(--jazari-block-gap) !important;
-    border-radius: var(--jazari-block-radius) 0 0 0 !important;
+    border-radius: var(--jazari-block-radius) var(--jazari-block-radius) 0 0 !important;
+    background-color: var(--vscode-panel-background) !important;
 }
 
-/* Panel.bottom: bottom-left */
+/* Editor internals: transparent so container color shows through */
+.part.editor > .content,
+.part.editor .editor-group-container,
+.part.editor .editor-container,
+.monaco-editor,
+.monaco-editor-background,
+.monaco-editor .margin {
+    background-color: transparent !important;
+}
+
+/* Panel.bottom: bottom */
 .part.panel.bottom {
     margin-bottom: var(--jazari-block-gap) !important;
-    border-radius: 0 0 0 var(--jazari-block-radius) !important;
+    border-radius: 0 0 8px var(--jazari-block-radius) !important;
 }
 
 /* Aux bar: top-right + bottom-right */
-.part.auxiliarybar {
-    margin: var(--jazari-block-gap) var(--jazari-block-gap) var(--jazari-block-gap) 0 !important;
-    border-radius: 0 var(--jazari-block-radius) var(--jazari-block-radius) 0 !important;
-    height: calc(100% - var(--jazari-block-gap)) !important;
+.part.auxiliarybar,
+.part.auxiliarybar>.title {
+    background-color: transparent !important;
 }
 
 /* Webview iframe overlays: rendered outside aux bar DOM at workbench root.
@@ -87,12 +97,10 @@
 /* --- State 2: Aux bar hidden → editor/panel pick up right corners + right gap --- */
 .monaco-workbench:not(:has(.split-view-view.visible > .part.auxiliarybar)) .part.editor {
     margin-right: var(--jazari-block-gap) !important;
-    border-radius: var(--jazari-block-radius) var(--jazari-block-radius) 0 0 !important;
 }
 
 .monaco-workbench:not(:has(.split-view-view.visible > .part.auxiliarybar)) .part.panel.bottom {
     margin-right: var(--jazari-block-gap) !important;
-    border-radius: 0 0 var(--jazari-block-radius) var(--jazari-block-radius) !important;
 }
 
 /* --- State 3: Editor only (no aux, no bottom panel) → all 4 corners --- */
@@ -291,11 +299,11 @@
     margin-bottom: 6px !important;
 }
 
-.monaco-workbench .notification-toast-container {
+/* .monaco-workbench .notification-toast-container {
     backdrop-filter: var(--jazari-blur) !important;
     -webkit-backdrop-filter: var(--jazari-blur) !important;
     background: color-mix(in srgb, var(--vscode-notifications-background) 40%, transparent) !important;
-}
+} */
 
 .monaco-workbench .notification-toast {
     border-radius: var(--jazari-widget-radius) !important;

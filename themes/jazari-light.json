@@ -79,7 +79,7 @@
         "activityBarBadge.background": "#1A8A95",
         "activityBarBadge.foreground": "#ffffff",
 
-        "sideBar.background": "#FAFBFC",
+        "sideBar.background": "#E7EBF5",
         "sideBar.foreground": "#24292E",
         "sideBar.border": "#E7EBF500",
         "sideBar.dropBackground": "#E0F4F680",
@@ -123,7 +123,7 @@
         "tab.hoverForeground": "#24292E",
         "tab.lastPinnedBorder": "#E4E7EC",
 
-        "editor.background": "#FAFBFC",
+        "editor.background": "#E7EBF5",
         "editor.foreground": "#24292E",
         "editorLineNumber.foreground": "#8B949E",
         "editorLineNumber.activeForeground": "#656D76",
@@ -212,7 +212,7 @@
         "panel.background": "#FAFBFC",
         "sideBarStickyScroll.background": "#E7EBF5",
 
-        "auxiliaryBar.background": "#FAFBFC",
+        "auxiliaryBar.background": "#E7EBF5",
         "panel.border": "#E4E7EC",
         "panel.dropBorder": "#1A8A95",
         "panelTitle.activeBorder": "#1A8A95",
