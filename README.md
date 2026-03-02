@@ -93,6 +93,20 @@ This produces `jazari-x.x.x.vsix`. Install it with:
 code --install-extension jazari-x.x.x.vsix
 ```
 
+## Troubleshooting
+
+**Panels not rounded, no glass effects, or UI looks off:**
+
+The CSS customizations may not be loading. Open your VS Code settings JSON (`Cmd+Shift+P` > **Open User Settings (JSON)**) and check `custom-ui-style.external.imports`:
+
+```json
+"custom-ui-style.external.imports": [
+  "file:///Users/yourname/.vscode/extensions/aala.jazari-1.2.1/css/jazari.css"
+]
+```
+
+The path must match your installed publisher (`aala`) and version number. If it points to an outdated path (e.g. `aalasolutions.jazari-1.0.0`), remove that entry, then run `Cmd+Shift+P` > **Custom UI Style: Reload** to apply. Jazari will re-inject the correct path automatically on the next startup.
+
 ## Why "Jazari"?
 
 Named after **Al-Jazari** (1136-1206), the Muslim polymath and mechanical engineer who built the world's first programmable machines. His work on automata and engineering laid foundations that echo through every line of code we write today.
