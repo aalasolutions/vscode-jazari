@@ -18,6 +18,7 @@ Dark and light VS Code theme. Teal accent, rounded floating panels, backdrop blu
 **Syntax highlighting** with semantic token support for JavaScript, TypeScript, JSX/TSX, Python, Go, Rust, CSS/SCSS/LESS, HTML, JSON, YAML, Markdown, Shell, and regex.
 
 **CSS layout customizations** (optional, via [Custom UI Style](https://marketplace.visualstudio.com/items?itemName=subframe7536.custom-ui-style)):
+
 - Unified rounded panels for editor, bottom panel, and auxiliary bar
 - Transparent sidebar internals that inherit the theme background
 - Rounded floating widgets (command palette, context menus, notifications, IntelliSense)
@@ -27,37 +28,54 @@ Dark and light VS Code theme. Teal accent, rounded floating panels, backdrop blu
 
 ## Installation
 
-1. Download `jazari-1.0.0.vsix` from the [latest release](https://github.com/aalasolutions/vscode-jazari/releases/latest).
+**From VS Code Marketplace (recommended):**
 
-2. Install it using one of these methods:
-   - **VS Code UI:** Extensions sidebar > `...` menu > **Install from VSIX** > select the downloaded file
+Search `Jazari` in the Extensions sidebar, or run in the Command Palette:
+
+```
+ext install aala.jazari
+```
+
+**From GitHub releases (VSIX):**
+
+1. Download `jazari-x.x.x.vsix` from the [latest release](https://github.com/aalasolutions/vscode-jazari/releases/latest).
+2. Install it:
+
+   - **VS Code UI:** Extensions sidebar > `...` menu > **Install from VSIX** > select the file
    - **Command line:**
      ```
-     code --install-extension jazari-1.0.0.vsix
+     code --install-extension jazari-x.x.x.vsix
      ```
 
-3. Select your theme variant:
-   - `Cmd+K Cmd+T` (Mac) or `Ctrl+K Ctrl+T` (Windows/Linux)
-   - Choose **Jazari Dark** or **Jazari Light**
-
+3. Select your theme variant: `Cmd+K Cmd+T` (Mac) or `Ctrl+K Ctrl+T` (Windows/Linux), choose **Jazari Dark** or **Jazari Light**.
 4. Reload VS Code when prompted.
 
-## Opting Out of CSS Customizations
+## Two in One
 
-Jazari includes optional rounded panels, backdrop blur, and layout tweaks powered by [Custom UI Style](https://marketplace.visualstudio.com/items?itemName=subframe7536.custom-ui-style).
+Jazari ships as a complete color theme AND a UI layout system. Each works independently:
 
-To keep Jazari colors without the CSS layout, run Command Palette > **"Jazari: Remove CSS Customizations"** > Reload. Or manually remove the Jazari entry from your `settings.json`:
+**As a color theme only:** Select Jazari Dark or Jazari Light. No additional dependencies required.
 
-```json
-"custom-ui-style.external.imports": [
-    "file:///path/to/jazari/css/jazari.css"  // remove this entry
-]
+**As a UI system only:** Keep your existing color theme. Install [Custom UI Style](https://marketplace.visualstudio.com/items?itemName=subframe7536.custom-ui-style) and Jazari will inject its CSS automatically. You get the floating panels, rounded surfaces, glass effects, and adaptive corner logic without changing your current theme colors.
+
+**Both together:** The intended Jazari experience. Color and layout designed as a system.
+
+## CSS Customizations
+
+Jazari's full UI depends on [Custom UI Style](https://marketplace.visualstudio.com/items?itemName=subframe7536.custom-ui-style). Rounded panel geometry, floating surfaces, transparency balance, and adaptive corner behavior are part of the theme system, not just add-ons.
+
+To remove the CSS customizations, open the Command Palette and run:
+
 ```
+Jazari: Remove CSS Customizations
+```
+
+This cleans up the import from Custom UI Style without requiring manual edits to your settings.
 
 ## Requirements
 
 - VS Code 1.89+
-- [Custom UI Style](https://marketplace.visualstudio.com/items?itemName=subframe7536.custom-ui-style) (optional, for CSS layout customizations)
+- [Custom UI Style](https://marketplace.visualstudio.com/items?itemName=subframe7536.custom-ui-style) (required for the intended Jazari UI)
 
 ## Build from Source
 
@@ -69,10 +87,10 @@ npm run compile
 npx @vscode/vsce package
 ```
 
-This produces `jazari-1.0.0.vsix`. Install it with:
+This produces `jazari-x.x.x.vsix`. Install it with:
 
 ```bash
-code --install-extension jazari-1.0.0.vsix
+code --install-extension jazari-x.x.x.vsix
 ```
 
 ## Why "Jazari"?

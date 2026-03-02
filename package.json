@@ -2,8 +2,8 @@
     "name": "jazari",
     "displayName": "Jazari",
     "description": "Dark and light VS Code theme. Teal accent, rounded floating panels, backdrop blur, zero noise. Named after Al-Jazari.",
-    "version": "1.0.0",
-    "publisher": "aalasolutions",
+    "version": "1.2.1",
+    "publisher": "aala",
     "icon": "assets/icon.png",
     "license": "MIT",
     "repository": {
@@ -43,6 +43,7 @@
         "theme": "dark"
     },
     "main": "./out/extension.js",
+    "extensionKind": ["ui"],
     "activationEvents": [
         "onStartupFinished"
     ],

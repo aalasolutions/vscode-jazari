@@ -59,11 +59,34 @@
 }
 
 /* --- State 1 (default): Aux bar visible --- */
-/* Editor: top */
 .part.editor {
-    margin-top: var(--jazari-block-gap) !important;
+    margin-right: 0 !important;
     border-radius: var(--jazari-block-radius) var(--jazari-block-radius) 0 0 !important;
     background-color: var(--vscode-panel-background) !important;
+}
+
+/* Panel right: editor right corners flat, no gap (panel.right handles it) */
+.monaco-workbench:has(.split-view-view.visible > .part.panel.right) .part.editor {
+    margin-right: 0 !important;
+    margin-left: var(--jazari-block-gap) !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+/* Panel left: editor left corners flat */
+.monaco-workbench:has(.split-view-view.visible > .part.panel.left) .part.editor {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+/* Panel right + no bottom: editor bottom-left rounds (no panel below to join) */
+.monaco-workbench:has(.split-view-view.visible > .part.panel.right):not(:has(.split-view-view.visible > .part.panel.bottom)) .part.editor {
+    border-bottom-left-radius: var(--jazari-block-radius) !important;
+}
+
+/* Panel left + no bottom: editor bottom-right rounds */
+.monaco-workbench:has(.split-view-view.visible > .part.panel.left):not(:has(.split-view-view.visible > .part.panel.bottom)) .part.editor {
+    border-bottom-right-radius: var(--jazari-block-radius) !important;
 }
 
 /* Editor internals: transparent so container color shows through */
@@ -79,7 +102,71 @@
 /* Panel.bottom: bottom */
 .part.panel.bottom {
     margin-bottom: var(--jazari-block-gap) !important;
-    border-radius: 0 0 8px var(--jazari-block-radius) !important;
+    border-radius: 0 0 var(--jazari-block-radius) var(--jazari-block-radius) !important;
+}
+
+/* Panel Top: unified block with editor, takes top corners */
+.part.panel.top {
+    margin-top: var(--jazari-block-gap) !important;
+    border-radius: var(--jazari-block-radius) var(--jazari-block-radius) 0 0 !important;
+    background-color: var(--vscode-panel-background) !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+}
+
+/* Editor below panel.top: flatten top corners to join seamlessly */
+.monaco-workbench:has(.split-view-view.visible > .part.panel.top) .part.editor {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
+
+/* Editor below panel.top with no panel.bottom: round bottom corners */
+.monaco-workbench:has(.split-view-view.visible > .part.panel.top):not(:has(.split-view-view.visible > .part.panel.bottom)) .part.editor {
+    border-bottom-left-radius: var(--jazari-block-radius) !important;
+    border-bottom-right-radius: var(--jazari-block-radius) !important;
+}
+
+/* Panel top/bottom + sidebar left: editor gets left gap */
+.monaco-workbench:has(.split-view-view.visible > .part.panel.top, .split-view-view.visible > .part.panel.bottom):has(.part.sidebar.left) .part.editor {
+    margin-left: var(--jazari-block-gap) !important;
+}
+
+/* Panel top/bottom + sidebar right: editor gets right gap */
+.monaco-workbench:has(.split-view-view.visible > .part.panel.top, .split-view-view.visible > .part.panel.bottom):has(.part.sidebar.right) .part.editor {
+    margin-right: var(--jazari-block-gap) !important;
+}
+
+/* Sidebar left: top/bottom panels get left gap */
+.monaco-workbench:has(.part.sidebar.left) .part.panel.bottom,
+.monaco-workbench:has(.part.sidebar.left) .part.panel.top {
+    margin-left: var(--jazari-block-gap) !important;
+}
+
+/* Sidebar right: top/bottom panels get right gap */
+.monaco-workbench:has(.part.sidebar.right) .part.panel.bottom,
+.monaco-workbench:has(.part.sidebar.right) .part.panel.top {
+    margin-right: var(--jazari-block-gap) !important;
+}
+
+/* Panel Left: outer left corners rounded, inner right flat (joins editor) */
+.part.panel.left {
+    background-color: var(--vscode-panel-background) !important;
+    border-radius: var(--jazari-block-radius) 0 0 var(--jazari-block-radius) !important;
+    margin: 0 1px 0 var(--jazari-block-gap) !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+}
+
+/* Panel Right: inner left flat (joins editor), outer right corners rounded */
+.part.panel.right {
+    background-color: var(--vscode-panel-background) !important;
+    border-radius: 0 var(--jazari-block-radius) var(--jazari-block-radius) 0 !important;
+    margin: 0 0 0 1px !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
 }
 
 /* Aux bar: top-right + bottom-right */
@@ -91,21 +178,26 @@
 /* Webview iframe overlays: rendered outside aux bar DOM at workbench root.
    VS Code computes overlay size without our margins, so trim edges + round corners. */
 .monaco-workbench > div[data-keybinding-context] {
-    clip-path: inset(var(--jazari-block-gap) var(--jazari-block-gap) var(--jazari-block-gap) 0 round 0 var(--jazari-block-radius) var(--jazari-block-radius) 0) !important;
+    clip-path: inset(var(--jazari-block-gap) var(--jazari-block-gap) var(--jazari-block-gap) var(--jazari-block-gap) round var(--jazari-block-radius) var(--jazari-block-radius) var(--jazari-block-radius) var(--jazari-block-radius)) !important;
 }
 
 /* --- State 2: Aux bar hidden → editor/panel pick up right corners + right gap --- */
 .monaco-workbench:not(:has(.split-view-view.visible > .part.auxiliarybar)) .part.editor {
-    margin-right: var(--jazari-block-gap) !important;
+    margin-right: 0px !important;
 }
 
 .monaco-workbench:not(:has(.split-view-view.visible > .part.auxiliarybar)) .part.panel.bottom {
     margin-right: var(--jazari-block-gap) !important;
 }
 
-/* --- State 3: Editor only (no aux, no bottom panel) → all 4 corners --- */
+/* --- State 4: No panel at all → editor gets all 4 corners (excludes left/right panel which handle their own corners) --- */
+.monaco-workbench:not(:has(.split-view-view.visible > .part.panel.bottom)):not(:has(.split-view-view.visible > .part.panel.top)):not(:has(.split-view-view.visible > .part.panel.right)):not(:has(.split-view-view.visible > .part.panel.left)) .part.editor {
+    border-radius: var(--jazari-block-radius) !important;
+}
+
+/* --- State 3: No aux, no bottom panel → right margin only --- */
 .monaco-workbench:not(:has(.split-view-view.visible > .part.auxiliarybar)):not(:has(.split-view-view.visible > .part.panel.bottom)) .part.editor {
-    margin: var(--jazari-block-gap) var(--jazari-block-gap) var(--jazari-block-gap) 0 !important;
+    margin: 0 var(--jazari-block-gap) 0 0 !important;
     border-radius: var(--jazari-block-radius) !important;
 }
 
